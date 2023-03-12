@@ -1284,8 +1284,12 @@ res.send(result);
 //location endpoint
 
 app.get("/location", (req, res)  => {
-  
-  res.send(location);
+  db.collection("location").find().toArray((err,result)=>
+  {
+    if(err) throw err;
+    res.send(result);
+
+  })
 
 });
 
