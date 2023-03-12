@@ -1,0 +1,6 @@
+
+
+command to kill the node processes:
+
+taskkill /F /IM node.exe 
+mongoose version 6.9.2,
