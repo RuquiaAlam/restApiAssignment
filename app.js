@@ -1283,15 +1283,15 @@ res.send(result);
 
 //location endpoint
 
-app.get("/location", (req, res)  => {
-  db.collection("location").find().toArray((err,result)=>
-  {
-    if(err) throw err;
-    res.send(result);
+// app.get("/location", (req, res)  => {
+//   db.collection("location").find().toArray((err,result)=>
+//   {
+//     if(err) throw err;
+//     res.send(result);
 
-  })
+//   })
 
-});
+// });
 
 
 //restaurant menu endpoint
