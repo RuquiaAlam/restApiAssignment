@@ -1263,35 +1263,76 @@ app.get("/", (req, res) => {
 
 
     // location endpoint
-    app.get("/location/:_id", (req, res)  => {
-      const { _id } = req.params;
+//     app.get("/location/:location_id", (req, res)  => {
+//       const { location_id } = req.params;
       
-console.log(req.params);
+// console.log(req.params);
 
-const result =location.find((dt) => dt._id == _id);
-res.send(result);
+// db.collection("location").find((dt)=> dt.location_id == location_id).toArray((err,result)=>
+//   {
+//     res.send(result )
+//   } );
+// if(err)
+// throw err;
+// console.lod(err);
+//     });
     
     
-    });
+  
 //mealtype endpoint
 
-  app.get("/MealType", (req, res)  => {
-  
-    res.send(MealType);
+  // app.get("/MealType/:mealtype_id", (req, res)  => {
  
+  //   let mealtype_id = (req.params.mealtype_id);
+  //   console.log(mealtype_id);
+  //   db.collection("MealType").find((dt)=>dt.mealtype_id == mealtype_id).toArray((err,result)=>
+  //   {
+  //     if(err) throw err;
+  //     res.send(result);
+  
+  //   })
+  // });
+  
+  app.get("/MealType", (req, res)  => {
+    db.collection("MealType").find().toArray((err,result)=>
+    {
+      if(err) throw err;
+      res.send(result);
+  
+    })
+  
+  });
+
+// location endpoint
+
+app.get("/location", (req, res)  => {
+  db.collection("location").find().toArray((err,result)=>
+  {
+    if(err) throw err;
+    res.send(result);
+
+  })
+
 });
 
-//location endpoint
+app.get("MealType/",(req,res)=>{
 
-// app.get("/location", (req, res)  => {
-//   db.collection("location").find().toArray((err,result)=>
-//   {
-//     if(err) throw err;
-//     res.send(result);
+let query ={}
+let mealtypeid = Number(req.params.mealtype_id);
+if(mealtype_id)
+{
+query ={mealtype_id:mealtypeid}
+}
 
-//   })
 
-// });
+db.collection("MealType").find().toArray((err,result)=>
+{
+  if(err) throw err;
+  res.send(result);
+
+});
+})
+
 
 
 //restaurant menu endpoint
@@ -1309,24 +1350,25 @@ app.get("/RestaurantMenu", (req, res)  => {
     res.send(result);
 
   })
+
 });
 
 
-// app.get("/RestaurantData", (req, res)  => 
-// {
+app.get("/RestaurantData", (req, res)  => 
+{
 
   
 
-//   db.collection("RestaurantData").find().toArray((err,result)=>
-//   {
-//     if(err) throw err;
-//     res.send(result);
+  db.collection("RestaurantData").find().toArray((err,result)=>
+  {
+    if(err) throw err;
+    res.send(result);
 
-//   })
+  })
 
 
  
-// });
+});
 
 
 
