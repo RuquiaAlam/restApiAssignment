@@ -1279,7 +1279,7 @@ app.get("/", (req, res) => {
     
     
   
-//mealtype endpoint
+// mealtype endpoint
 
   // app.get("/MealType/:mealtype_id", (req, res)  => {
  
@@ -1333,7 +1333,16 @@ db.collection("MealType").find().toArray((err,result)=>
 });
 })
 
+app.get("/MealType",(req,res)=>{
 
+  db.collection("MealType").find().toArray((err,result)=>
+  {
+    if(err) throw err;
+    res.send(result);
+  
+  });
+
+})
 
 //restaurant menu endpoint
 
