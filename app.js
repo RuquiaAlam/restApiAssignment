@@ -1481,21 +1481,21 @@ if(menuid)
 
 
 
-// app.get("/RestaurantData", (req, res)  => 
-// {
+app.get("/RestaurantData", (req, res)  => 
+{
 
   
 
-//   db.collection("RestaurantData").find().toArray((err,result)=>
-//   {
-//     if(err) throw err;
-//     res.send(result);
+  db.collection("RestaurantData").find().toArray((err,result)=>
+  {
+    if(err) throw err;
+    res.send(result);
 
-//   })
+  })
 
 
  
-// });
+});
 
 
 
@@ -1519,3 +1519,18 @@ db.collection("RestaurantData").find( { address: { $regex: address, $options: "i
 
 
 
+app.get("/Orders", (req, res)  => 
+{
+
+  
+
+  db.collection("Orders").find().toArray((err,result)=>
+  {
+    if(err) throw err;
+    res.send(result);
+
+  })
+
+
+ 
+});
