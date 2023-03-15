@@ -1,7 +1,9 @@
 Page 1
 ---------
 => List the cities
+https://assignment-v.onrender.com/location
 =>List the retaurants
+https://assignment-v.onrender.com/RestaurantData
 =>Restaurants on the basis of city 
 
 Page 2

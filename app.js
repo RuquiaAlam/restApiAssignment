@@ -22,7 +22,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const PORT  = 9002;
+const authkey ="9e9d7a08e048e9d604b79460b54969c3";
+function auth(key){
+  if(authkey==key)
+{
+  return true;
 
+}
+else{
+  return false;
+
+}
+}
 // const location = [
 //   {
 //       "_id": "1",
@@ -1277,6 +1288,29 @@ app.get("/", (req, res) => {
 // console.lod(err);
 //     });
     
+  //  restaurant endpoint
+    app.get("/RestaurantData", (req, res)  => 
+    {
+     
+      let query ={}
+      let stateId = Number(req.query.stateId);
+      let mealId =Number(req.query.mealId);
+      if(stateId)
+{
+  query = { state_id : stateId};
+
+}
+  else if(mealId){
+    query = {"mealTypes.mealtype_id" : mealId };
+
+  }
+
+db.collection("RestaurantData").find(query).toArray((err,result)=>
+  {
+    res.send(result )
+  } );
+
+    });
     
   
 // mealtype endpoint
@@ -1293,47 +1327,56 @@ app.get("/", (req, res) => {
   //   })
   // });
   
-  app.get("/MealType", (req, res)  => {
-    db.collection("MealType").find().toArray((err,result)=>
-    {
-      if(err) throw err;
-      res.send(result);
+  // app.get("/MealType", (req, res)  => {
+  //   db.collection("MealType").find().toArray((err,result)=>
+  //   {
+  //     if(err) throw err;
+  //     res.send(result);
   
-    })
+  //   })
   
-  });
+  // });
 
 // location endpoint
 
 app.get("/location", (req, res)  => {
+  if(auth(req.header('x-auth-key'))){
+
   db.collection("location").find().toArray((err,result)=>
   {
     if(err) throw err;
     res.send(result);
 
   })
-
-});
-
-app.get("MealType/",(req,res)=>{
-
-let query ={}
-let mealtypeid = Number(req.params.mealtype_id);
-if(mealtype_id)
-{
-query ={mealtype_id:mealtypeid}
+}
+else{
+  res.send("Unauthorized user");
 }
 
-
-db.collection("MealType").find().toArray((err,result)=>
-{
-  if(err) throw err;
-  res.send(result);
-
 });
-})
+
+// Mealtype based on id
+// app.get("MealTypebasedonid",(req,res)=>{
+
+// let query ={}
+// let mealtypeid = Number(req.params.mealtype_id);
+// if(mealtype_id)
+// {
+// query ={mealtype_id:mealtypeid}
+// }
+
+
+// db.collection("MealType").find().toArray((err,result)=>
+// {
+//   if(err) throw err;
+//   res.send(result);
+
+// });
+// })
 
 app.get("/MealType",(req,res)=>{
+
+ if(auth(req.header('x-auth-key'))){
 
   db.collection("MealType").find().toArray((err,result)=>
   {
@@ -1341,7 +1384,10 @@ app.get("/MealType",(req,res)=>{
     res.send(result);
   
   });
-
+  }
+  else{
+    res.send("Unauthorized user")
+  }
 })
 
 //restaurant menu endpoint
@@ -1363,21 +1409,21 @@ app.get("/RestaurantMenu", (req, res)  => {
 });
 
 
-app.get("/RestaurantData", (req, res)  => 
-{
+// app.get("/RestaurantData", (req, res)  => 
+// {
 
   
 
-  db.collection("RestaurantData").find().toArray((err,result)=>
-  {
-    if(err) throw err;
-    res.send(result);
+//   db.collection("RestaurantData").find().toArray((err,result)=>
+//   {
+//     if(err) throw err;
+//     res.send(result);
 
-  })
+//   })
 
 
  
-});
+// });
 
 
 
