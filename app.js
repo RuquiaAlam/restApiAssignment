@@ -1366,14 +1366,34 @@ app.get("/cuisine/:mealId",(req,res)=>
 {
   let mealId = Number(req.params.mealId);
   let cuisineId = Number(req.query.cuisineId)
+  let lcost = Number(req.query.lcost);
+  let hcost =Number(req.query.hcost);
   let query ={}
-  if(cuisineId)
+  //sorting
+  let sort = {cost :1};
+  if(req.query.sort)
   {
-query ={"mealTypes.mealtype_id" : mealId,"cuisines.cuisine_id" : cuisineId }  
-  }else{
+    sort ={cost :req.query.sort};
+  }
+ if(lcost && hcost && cuisineId)
+ {
+query ={"mealTypes.mealtype_id" : mealId, $and: [{ cost : {$gt : lcost, $lt : hcost}}],
+"cuisines.cuisine_id" : cuisineId }
+ }
+
+else if(lcost && hcost)
+{
+  query ={"mealTypes.mealtype_id" : mealId, $and: [{ cost : {$gt : lcost, $lt : hcost}}]}
+}
+  else if(cuisineId)
+  {
+query ={"mealTypes.mealtype_id" : mealId,
+"cuisines.cuisine_id" : cuisineId }  
+  }
+  else{
     query = {"mealTypes.mealtype_id" : mealId}
   }
-  db.collection("RestaurantData").find(query).toArray((err,result) =>
+  db.collection("RestaurantData").find(query).sort(sort).toArray((err,result) =>
   {
     if(err)
     throw err;

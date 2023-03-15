@@ -26,12 +26,20 @@ https://assignment-v.onrender.com/RestaurantData?mealId=2&stateId=1
 http://localhost:9002/cuisine/1?cuisineId=3
 
 =>Filter on the basis of cost
+http://localhost:9002/cuisine/1?cuisineId=3
+https://assignment-v.onrender.com/cuisine/1?cuisineId=3
 
+
+http://localhost:9002/cuisine/1?lcost=500&hcost=1000
+
+
+http://localhost:9002/cuisine/2?lcost=500&hcost=2000&cuisineId=4&sort=-1
+http://localhost:9002/cuisine/2?lcost=500&hcost=2000&cuisineId=4&sort=1
 
 Page 3
 --------
 =>Details of restaurants
-M=>enu of the restaurant
+=>Menu of the restaurant
 
 
 Page 4
