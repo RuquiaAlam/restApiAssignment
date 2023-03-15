@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 const PORT  = 9002;
 const authkey ="9e9d7a08e048e9d604b79460b54969c3";
 function auth(key){
-  if(authkey==key)
+  if(authkey == key)
 {
   return true;
 
@@ -1340,7 +1340,9 @@ db.collection("RestaurantData").find(query).toArray((err,result)=>
 // location endpoint
 
 app.get("/location", (req, res)  => {
-  if(auth(req.header('x-auth-key'))){
+
+  if(auth(req.header('x-auth-key')))
+  {
 
   db.collection("location").find().toArray((err,result)=>
   {
