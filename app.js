@@ -1344,8 +1344,8 @@ db.collection("RestaurantData").find(query).toArray((err,result)=>
 // location endpoint
 
 app.get("/location", (req, res)  => {
-
-  if(auth(req.header('x-auth-key')))
+let key =req.header('x-auth-key');
+  if(authkey==key)
   {
 
   db.collection("location").find().toArray((err,result)=>
@@ -1361,24 +1361,25 @@ else{
 
 });
 
-// Mealtype based on id
-// app.get("MealTypebasedonid",(req,res)=>{
-
-// let query ={}
-// let mealtypeid = Number(req.params.mealtype_id);
-// if(mealtype_id)
-// {
-// query ={mealtype_id:mealtypeid}
-// }
-
-
-// db.collection("MealType").find().toArray((err,result)=>
-// {
-//   if(err) throw err;
-//   res.send(result);
-
-// });
-// })
+//api end point for mealid and cuisine
+app.get("/cuisine/:mealId",(req,res)=>
+{
+  let mealId = Number(req.params.mealId);
+  let cuisineId = Number(req.query.cuisineId)
+  let query ={}
+  if(cuisineId)
+  {
+query ={"mealTypes.mealtype_id" : mealId,"cuisines.cuisine_id" : cuisineId }  
+  }else{
+    query = {"mealTypes.mealtype_id" : mealId}
+  }
+  db.collection("RestaurantData").find(query).toArray((err,result) =>
+  {
+    if(err)
+    throw err;
+    res.send(result)
+  });
+})
 
 app.get("/MealType",(req,res)=>{
 
@@ -1396,10 +1397,9 @@ app.get("/MealType",(req,res)=>{
   }
 })
 
+
+
 //restaurant menu endpoint
-
-
-
 
 app.get("/RestaurantMenu", (req, res)  => {
 
