@@ -1270,7 +1270,43 @@ app.get("/", (req, res) => {
     res.send("Hello everyone!!!!🥳🥳😉😉😉");
   });
 
+//api restaurant details on Object id
 
+app.get("/details/:id" ,(req,res)=>
+  {
+    let id =mongo.ObjectId(req.params.id);
+ 
+  
+
+  
+    db.collection("RestaurantData").find({_id:id}).toArray((err,result) =>
+    {
+      if(err)
+      throw err;
+      res.send(result);
+
+    });
+
+  });
+
+  
+//api restaurant details on Restaurant id
+app.get("/detailsrestaurantid/:restaurantid" ,(req,res)=>
+{
+  let restaurantid =Number(req.params.restaurantid);
+
+
+
+
+  db.collection("RestaurantData").find({restaurant_id : restaurantid}).toArray((err,result) =>
+  {
+    if(err)
+    throw err;
+    res.send(result);
+
+  });
+
+});
 
 
     // location endpoint
@@ -1304,8 +1340,14 @@ else if(stateId)
 {
   query = {state_id : stateId };
 }
-else {
+else if(mealId)
+{
 query ={"mealTypes.mealtype_id" : mealId }
+}
+else
+{
+  query ={}
+
 }
   
 
@@ -1419,20 +1461,24 @@ app.get("/MealType",(req,res)=>{
 
 
 
-//restaurant menu endpoint
+//restaurant menu endpoint based on menuid
 
-app.get("/RestaurantMenu", (req, res)  => {
+app.get("/RestaurantMenu/:menuid", (req, res)  => {
 
+let menuid= Number(req.params.menuid);
 
-
-  db.collection("RestaurantMenu").find().toArray((err,result)=>
+if(menuid)
+{
+  db.collection("RestaurantMenu").find( {restaurant_id : menuid}).toArray((err,result)=>
   {
     if(err) throw err;
     res.send(result);
 
   })
+}
 
 });
+
 
 
 // app.get("/RestaurantData", (req, res)  => 
