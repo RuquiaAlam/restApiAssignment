@@ -1295,15 +1295,19 @@ app.get("/", (req, res) => {
       let query ={}
       let stateId = Number(req.query.stateId);
       let mealId =Number(req.query.mealId);
-      if(stateId)
+      if(stateId &&mealId )
 {
-  query = { state_id : stateId};
-
+  query = { state_id : stateId,"mealTypes.mealtype_id" : mealId };
 }
-  else if(mealId){
-    query = {"mealTypes.mealtype_id" : mealId };
 
-  }
+else if(stateId)
+{
+  query = {state_id : stateId };
+}
+else {
+query ={"mealTypes.mealtype_id" : mealId }
+}
+  
 
 db.collection("RestaurantData").find(query).toArray((err,result)=>
   {

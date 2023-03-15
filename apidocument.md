@@ -8,12 +8,16 @@ https://assignment-v.onrender.com/location
 =>List the retaurants
 https://assignment-v.onrender.com/RestaurantData
 http://localhost:9002/RestaurantData
+
 =>Restaurants on the basis of city 
+http://localhost:9002/filter?address=Chandigarh
+https://assignment-v.onrender.com/filter?address=Chandigarh
 
 Page 2
 ---------
 =>List of Restaurants based on meals
 http://localhost:9002/RestaurantData?stateId=1&&mealId=1
+
 =>Filter on the basis of cuisine
 =>Filter on the basis of cost
 
