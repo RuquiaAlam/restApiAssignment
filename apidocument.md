@@ -2,7 +2,7 @@ Page 1
 ---------
 => List the cities
 
-http://localhost:9002/location
+http://localhost:9002/location(GET)
 https://assignment-v.onrender.com/location
 
 
@@ -10,16 +10,16 @@ https://assignment-v.onrender.com/location
 
 =>List the retaurants
 
-http://localhost:9002/RestaurantData
+http://localhost:9002/RestaurantData(GET)
 https://assignment-v.onrender.com/RestaurantData
 
-=>Restaurants on the basis of city 
+=>Restaurants on the basis of city (GET)
 http://localhost:9002/filter?address=Chandigarh
 https://assignment-v.onrender.com/filter?address=Chandigarh
 
 Page 2
 ---------
-=>List of Restaurants based on state and meals
+=>List of Restaurants based on state and meals(GET)
 
 http://localhost:9002/RestaurantData?mealId=5&stateId=2
 https://assignment-v.onrender.com/RestaurantData?mealId=2&stateId=1
@@ -31,10 +31,10 @@ https://assignment-v.onrender.com/filter?address=mumbai
 
 
 
-=>Filter on the basis of cuisine
+=>Filter on the basis of cuisine(GET)
 http://localhost:9002/cuisine/1?cuisineId=3
 
-=>Filter on the basis of cost
+=>Filter on the basis of cost(GET)
 http://localhost:9002/cuisine/1?cuisineId=3
 https://assignment-v.onrender.com/cuisine/1?cuisineId=3
 
@@ -50,7 +50,7 @@ https://assignment-v.onrender.com/cuisine/2?lcost=500&hcost=2000&cuisineId=4&sor
 
 Page 3
 --------
-=>Details of restaurants
+=>Details of restaurants(GET)
 http://localhost:9002/details/640b3f0480c81a7171507d57
 (mongoObjectId)
 
@@ -58,28 +58,25 @@ http://localhost:9002/detailsrestaurantid/2
 (restaurantid)
 
 
-=>Menu of the restaurant
+=>Menu of the restaurant(GET)
 http://localhost:9002/RestaurantMenu/3 
 (restaurants and their menus)
-=>Meal Type 
+=>Meal Type (GET)
 http://localhost:9002/MealType
 
 Page 4
 ---------
-=>Menu details(selected items)
+=>Menu details(selected items)(POST)
 
 
-=>list of orders
+=>list of orders(GET)
 http://localhost:9002/Orders
 
 =>Place Order
 
 Page 5
 ---------
-=>List of orders placed
-
-
-
+=>List of orders placed(POST)
 http://localhost:9002/placeOrder
 =>List of orders placed on particular user
 
@@ -100,8 +97,14 @@ https://assignment-v.onrender.com/Orders?email=kamie@gmail.com
     ]
   }
 
-=>Update order status
+=>Update order status(PUT)
 localhost:9002/updateOrder/64121dbc3a69b4c94ef99c0a
+eg:
+{
+ "status":"TAX Failed",
+   "bank_name":"SBI",
+   "date":"03-17-2023"
+}
 
 
 

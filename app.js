@@ -1386,9 +1386,9 @@ db.collection("RestaurantData").find(query).toArray((err,result)=>
 // location endpoint
 
 app.get("/location", (req, res)  => {
-let key =req.header('x-auth-key');
-  if(authkey==key)
-  {
+// let key =req.header('x-auth-key');
+  // if(authkey==key)
+  // {
 
   db.collection("location").find().toArray((err,result)=>
   {
@@ -1396,10 +1396,10 @@ let key =req.header('x-auth-key');
     res.send(result);
 
   })
-}
-else{
-  res.send("Unauthorized user");
-}
+// }
+// else{
+//   res.send("Unauthorized user");
+// }
 
 });
 
@@ -1443,9 +1443,11 @@ query ={"mealTypes.mealtype_id" : mealId,
   });
 })
 
+
+
 app.get("/MealType",(req,res)=>{
 
- if(auth(req.header('x-auth-key'))){
+
 
   db.collection("MealType").find().toArray((err,result)=>
   {
@@ -1453,10 +1455,8 @@ app.get("/MealType",(req,res)=>{
     res.send(result);
   
   });
-  }
-  else{
-    res.send("Unauthorized user")
-  }
+
+
 })
 
 
@@ -1475,9 +1475,24 @@ if(menuid)
     res.send(result);
 
   })
+  
 }
 
+
 });
+
+app.get("/Menu", (req, res)  => {
+
+  db.collection("RestaurantMenu").find( ).toArray((err,result)=>
+  {
+    if(err) throw err;
+    res.send(result);
+
+  })
+  
+
+});
+
 
 
 
@@ -1588,3 +1603,5 @@ app.put("/updateOrder/:id",(req,res)=>
     res.send("Order Updated")
   })
 })
+
+//Menu details(selected items)
