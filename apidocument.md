@@ -85,8 +85,23 @@ http://localhost:9002/placeOrder
 
 http://localhost:9002/Orders?email=alam@gmail.com
 http://localhost:9002/Orders?email=rahul@gmail.com
+https://assignment-v.onrender.com/Orders?email=kamie@gmail.com
+{
+   
+    "name": "Jack",
+    "email": "jack@gmail.com",
+    "address": "Hno 23,Sector 1",
+    "phone": 968768636,
+    "cost": 1900,
+    "menuItem": [
+      2,
+      22,
+      23
+    ]
+  }
 
 =>Update order status
+localhost:9002/updateOrder/64121dbc3a69b4c94ef99c0a
 
 
 

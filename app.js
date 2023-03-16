@@ -1572,15 +1572,19 @@ app.post("/placeOrder",(req,res)=>
     res.send("success")
   })
 })
-// app.put("/updateStatus/:id",(req,res)=>
-// {
+app.put("/updateOrder/:id",(req,res)=>
+{
 
-//   let oid = mongo.ObjectId(req.params.id);
-//   console.log(req.body);
+  let oid = mongo.ObjectId(req.params.id);
+  console.log(req.body);
 
-//   db.collection("Orders").update({ _id : oid },(err,result)=>
-//   {
-//     if(err) throw err;
-//     res.send("success")
-//   })
-// })
+  db.collection("Orders").updateOne({ _id : oid },{$set:{
+    status:req.body.status,
+    bank_name:req.body.bank_name,
+    date:req.body.date,
+  }},(err,result)=>
+  {
+    if(err) throw err;
+    res.send("Order Updated")
+  })
+})
