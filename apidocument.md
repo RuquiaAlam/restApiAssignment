@@ -61,16 +61,31 @@ http://localhost:9002/detailsrestaurantid/2
 =>Menu of the restaurant
 http://localhost:9002/RestaurantMenu/3 
 (restaurants and their menus)
+=>Meal Type 
+http://localhost:9002/MealType
 
 Page 4
 ---------
 =>Menu details(selected items)
+
+
+=>list of orders
+http://localhost:9002/Orders
+
 =>Place Order
 
 Page 5
 ---------
 =>List of orders placed
+
+
+
+http://localhost:9002/placeOrder
 =>List of orders placed on particular user
+
+http://localhost:9002/Orders?email=alam@gmail.com
+http://localhost:9002/Orders?email=rahul@gmail.com
+
 =>Update order status
 
 

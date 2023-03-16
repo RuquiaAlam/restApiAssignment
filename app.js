@@ -1521,10 +1521,16 @@ db.collection("RestaurantData").find( { address: { $regex: address, $options: "i
 
 app.get("/Orders", (req, res)  => 
 {
+let email =req.query.email;
+let query={}
+if(email)
+{
+  query ={email}
+}
 
   
 
-  db.collection("Orders").find().toArray((err,result)=>
+  db.collection("Orders").find(query).toArray((err,result)=>
   {
     if(err) throw err;
     res.send(result);
@@ -1534,3 +1540,47 @@ app.get("/Orders", (req, res)  =>
 
  
 });
+
+
+
+app.delete("/deleteOrders/:id", (req, res)  => 
+{
+
+let oid = mongo.ObjectId(req.params.id);
+
+
+  
+
+  db.collection("Orders").deleteOne({ _id : oid }, (err,result) =>
+  {
+    if(err) throw err;
+    res.send("Order deleted");
+console.log(result);
+  });
+
+
+ 
+});
+//Place Order
+app.post("/placeOrder",(req,res)=>
+{
+  console.log(req.body);
+
+  db.collection("Orders").insertOne(req.body,(err,result)=>
+  {
+    if(err) throw err;
+    res.send("success")
+  })
+})
+// app.put("/updateStatus/:id",(req,res)=>
+// {
+
+//   let oid = mongo.ObjectId(req.params.id);
+//   console.log(req.body);
+
+//   db.collection("Orders").update({ _id : oid },(err,result)=>
+//   {
+//     if(err) throw err;
+//     res.send("success")
+//   })
+// })
