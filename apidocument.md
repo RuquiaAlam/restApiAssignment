@@ -22,6 +22,8 @@ Page 2
 =>List of Restaurants based on state and meals(GET)
 
 http://localhost:9002/RestaurantData?mealId=5&stateId=2
+
+http://localhost:9002/RestaurantData?mealId=5
 https://assignment-v.onrender.com/RestaurantData?mealId=2&stateId=1
 
 
@@ -32,6 +34,9 @@ https://assignment-v.onrender.com/filter?address=mumbai
 
 
 =>Filter on the basis of cuisine(GET)
+
+http://localhost:9002/cuisine
+
 http://localhost:9002/cuisine/1?cuisineId=3
 
 =>Filter on the basis of cost(GET)
@@ -112,3 +117,11 @@ Page 6
 -------
 Payment methods
 
+
+
+
+login
+npm i bcrypt body-parser cors express jsonwebtoken mongoose
+
+
+mongoose.connect("mongodb+srv://test:test@cluster0.mxlm7ff.mongodb.net/test")

@@ -1404,44 +1404,46 @@ app.get("/location", (req, res)  => {
 });
 
 //api end point for mealid and cuisine
-app.get("/cuisine/:mealId",(req,res)=>
-{
+app.get("/cuisine/:mealId", (req, res) => {
   let mealId = Number(req.params.mealId);
-  let cuisineId = Number(req.query.cuisineId)
+  let cuisineId = Number(req.query.cuisineId);
   let lcost = Number(req.query.lcost);
-  let hcost =Number(req.query.hcost);
-  let query ={}
+  let hcost = Number(req.query.hcost);
+  let query = {};
   //sorting
-  let sort = {cost :1};
-  if(req.query.sort)
-  {
-    sort ={cost :req.query.sort};
+  let sort = { cost: 1 };
+  if (req.query.sort) {
+    sort = { cost: req.query.sort };
   }
- if(lcost && hcost && cuisineId)
- {
-query ={"mealTypes.mealtype_id" : mealId, $and: [{ cost : {$gt : lcost, $lt : hcost}}],
-"cuisines.cuisine_id" : cuisineId }
- }
+  if (cuisineId && lcost && hcost) {
+    query = {
+      "mealTypes.mealtype_id": mealId,
+      $and: [{ cost: { $gt: lcost, $lt: hcost } }],
+      "cuisines.cuisine_id": cuisineId,
+    };
+  } else if (lcost && hcost) {
+    query = {
+      "mealTypes.mealtype_id": mealId,
+      $and: [{ cost: { $gt: lcost, $lt: hcost } }],
+    };
+  } else if (cuisineId) {
+    query = {
+      "mealTypes.mealtype_id": mealId,
+      "cuisines.cuisine_id": cuisineId,
+    };
+  }
+  //  else {
+  //   query = { "mealTypes.mealtype_id": mealId };
+  // }
+  db.collection("RestaurantData")
+    .find(query)
+    .sort(sort)
+    .toArray((err, result) => {
+      if (err) throw err;
+      res.send(result);
+    });
+});
 
-else if(lcost && hcost)
-{
-  query ={"mealTypes.mealtype_id" : mealId, $and: [{ cost : {$gt : lcost, $lt : hcost}}]}
-}
-  else if(cuisineId)
-  {
-query ={"mealTypes.mealtype_id" : mealId,
-"cuisines.cuisine_id" : cuisineId }  
-  }
-  else{
-    query = {"mealTypes.mealtype_id" : mealId}
-  }
-  db.collection("RestaurantData").find(query).sort(sort).toArray((err,result) =>
-  {
-    if(err)
-    throw err;
-    res.send(result)
-  });
-})
 
 
 
@@ -1459,7 +1461,17 @@ app.get("/MealType",(req,res)=>{
 
 })
 
+// app.get("/cuisine",(req,res)=>
+// {
 
+//   db.collection("RestaurantData").find().toArray((err,result) =>
+//   {
+//     if(err)
+//     throw err;
+//     res.send(result)
+//   });
+
+// });
 
 //restaurant menu endpoint based on menuid
 
@@ -1586,7 +1598,8 @@ app.post("/placeOrder",(req,res)=>
     if(err) throw err;
     res.send("success")
   })
-})
+});
+
 app.put("/updateOrder/:id",(req,res)=>
 {
 
@@ -1603,5 +1616,32 @@ app.put("/updateOrder/:id",(req,res)=>
     res.send("Order Updated")
   })
 })
+app.get("/data", (req, res) => {
+  res.send(data);
+});
+
+//get data based on ID
+// req.params - to get the id from
+app.get("/data/:id", (req, res) => {
+  const { id } = req.params;
+  console.log(req.params);
+  const result = RestaurantData.find((dt) => dt.id == id);
+  res.send(result);
+});
 
 //Menu details(selected items)
+
+//Menu based on user selected items
+
+app.post("/menuItem", (req, res) => {
+  if (Array.isArray(req.body)) {
+    db.collection("RestaurantMenu")
+      .find({ menu_id: { $in: req.body } })
+      .toArray((err, result) => {
+        if (err) throw err;
+        res.send(result);
+      });
+  } else {
+    res.send("Invalid input");
+  }
+});
